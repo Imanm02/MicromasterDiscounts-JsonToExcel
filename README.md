@@ -112,7 +112,7 @@ The script is designed to parse JSON files with a specific structure, so ensure 
   }
 ]
 
-If your JSON files are structured differently, you must modify the script accordingly.
+If your JSON files is structured differently, you must modify the script accordingly.
 
 # Maintainer
 - [Iman Mohammadi](https://github.com/Imanm02)
