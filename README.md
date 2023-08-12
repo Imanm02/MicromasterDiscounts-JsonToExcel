@@ -111,6 +111,7 @@ The script is designed to parse JSON files with a specific structure, so ensure 
     }
   }
 ]
+```
 
 If your JSON files is structured differently, you must modify the script accordingly.
 
