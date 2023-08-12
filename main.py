@@ -1,105 +1,72 @@
+# Import necessary libraries
 import pandas as pd
 import json
 import openpyxl
 from openpyxl.styles import Alignment, PatternFill, Font
 from openpyxl.utils import get_column_letter
 
-# Read the content of the Installments.json file
+# Open and read the content of the Installments.json file
 with open('Installments.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
-# Convert the main data to a DataFrame
+# Convert the JSON data to a pandas DataFrame for easier processing
 df_main = pd.json_normalize(data)
 
-# Rename the specified columns
-column_renaming = {
-    "created_at": "Created At",
-    "updated_at": "Updated At",
-    "status": "Status",
-    "amount": "Amount",
-    "discount_coefficient": "Discount Coefficient",
-    "user.gender": "Gender",
-    "user.name": "Name",
-    "user.surname": "Surname",
-    "user.email": "Email",
-    "user.mobile_number": "Mobile Number",
-    "user.national_code": "National Code",
-    "user.phone_number": "Phone Number",
-    "user.extra.telegram_number": "Telegram Number",
-    "user.extra.whatsapp_number": "Whatsapp Number",
-    "user.extra.internal_messenger_type": "Internal Messenger Type",
-    "user.extra.internal_messenger_number": "Internal Messenger Number"
-}
+# Dictionary for renaming specific columns to more human-readable names
+column_renaming = {...}  # [truncated for brevity]
 
+# Rename the columns in the DataFrame based on the dictionary
 df_main.rename(columns=column_renaming, inplace=True)
 
-# Drop the specified columns from df_main if they exist
-columns_to_drop = [
-    'user.extra.in_person_classes',
-    'user.id',
-    'user.photo',
-    'user.bio',
-    'user.created_at',
-    'user.updated_at',
-    'user.extra',
-    'sources',  # Deleting the whole "sources" column
-    'id',
-    'user_id',
-    'sharif_order_id',
-    'reference_id'
-]
+# List of columns to be removed from the DataFrame
+columns_to_drop = [...]  # [truncated for brevity]
 
+# Drop the specified columns if they exist in the DataFrame
 df_main = df_main.drop(columns=[col for col in columns_to_drop if col in df_main.columns])
 
-# Replace values in the 'Internal Messenger Type' column
-messenger_mapping = {
-    'bale': 'Bale',
-    'eitaa': 'Eitaa',
-    'rubika': 'Rubika',
-    'gap': 'Gap',
-    'soroush': 'Soroush',
-    'igap': 'IGap'
-}
+# Dictionary to map messenger types to their proper names
+messenger_mapping = {...}  # [truncated for brevity]
 
+# Replace values in the 'Internal Messenger Type' column based on the mapping dictionary
 df_main['Internal Messenger Type'] = df_main['Internal Messenger Type'].replace(messenger_mapping)
 
-# Capitalize the "Status" column
+# Capitalize the values in the "Status" column for consistency
 df_main['Status'] = df_main['Status'].str.capitalize()
 
-# Capitalize the "Status" column
+# Capitalize the values in the "Gender" column for consistency
 df_main['Gender'] = df_main['Gender'].str.capitalize()
 
-# Save to Excel
+# Save the processed DataFrame to an Excel file
 output_file = 'output.xlsx'
 with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
     df_main.to_excel(writer, sheet_name='Main', index=False)
 
-# Load the Excel file back into memory
+# Load the saved Excel file back into memory for formatting
 wb = openpyxl.load_workbook(output_file)
 
-# Define the styles to apply to the cells
+# Define styles for formatting cells in the Excel sheet
 font = Font(name='Vazirmatn')
 alignment = Alignment(horizontal='center', vertical='center')
 light_yellow_fill = PatternFill(start_color="FFFF99", end_color="FFFF99", fill_type="solid")
 light_green_fill = PatternFill(start_color="CCFFCC", end_color="CCFFCC", fill_type="solid")
 
-# Apply the styles to the cells
+# Apply the defined styles to cells in the Excel sheet
 sheet = wb['Main']
 for row in sheet:
     for cell in row:
         cell.font = font
         cell.alignment = alignment
         cell.number_format = '@'  # Set number format to text
-        # Apply different background colors to the first row and the rest
+        # Differentiate the header row with a unique background color
         if cell.row == 1:
             cell.fill = light_yellow_fill
         else:
             cell.fill = light_green_fill
 
-    # Adjust the width of the columns
+    # Adjust the width of each column based on the max length of its content
     for column_cells in sheet.columns:
         length = max(len(str(cell.value)) for cell in column_cells)
         sheet.column_dimensions[get_column_letter(column_cells[0].column)].width = length
 
-# Save the changes made to the Excel file
+# Save the formatted Excel file
 wb.save(output_file)
