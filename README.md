@@ -23,7 +23,7 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 \```
 
-2. **Reading and Parsing the JSON Data**: The script reads the JSON file into a Python dictionary and then normalizes it into a DataFrame.
+2. **Loading and parsing JSON file**: The script reads the JSON file into a Python dictionary and then normalizes it into a DataFrame.
 
 \```python
 with open('Installments.json', 'r', encoding='utf-8') as file:
@@ -59,13 +59,42 @@ wb.save(output_file)
 
 ## Usage
 
-To run this script:
+To run the script, make sure the JSON file is located in the same directory as the script, then simply execute the script with a Python interpreter. You'll need to have `json`, `pandas`, and `openpyxl` installed in your Python environment.
 
-1. Ensure the JSON file (`Installments.json`) is present in the same directory as the script.
-2. Ensure that the libraries `json`, `pandas`, and `openpyxl` are installed in your Python environment.
-3. Simply execute the script with a Python interpreter.
+The script is designed to parse JSON files with a specific structure, so ensure your files follow the expected format. Here's an example of how the JSON file should be structured:
 
-Please note that the script expects the JSON file to follow a specific structure related to installment data. If your data is differently structured, modifications to the script may be required.
+<!-- ```json
+{
+  "courses": [
+    {
+      "name": "Course Name",
+      "code": "Course Code",
+      "current_group": [
+        {
+          "students": [
+            {
+              "id": "Student ID",
+              "name": "Name",
+              "surname": "Surname",
+              "gender": "Gender",
+              "email": "Email",
+              "mobile_number": "Mobile Number",
+              "national_code": "National Code",
+              "phone_number": "Phone Number",
+              "pivot": {
+                "status": "Status"
+              }
+            },
+            ...
+          ]
+        }
+      ]
+    }
+  ]
+}
+``` -->
+
+If your JSON files are structured differently, you must modify the script accordingly.
 
 # Maintainer
-- [Your Name Here](https://github.com/YourGitHubHandle)
+- [Iman Mohammadi](https://github.com/Imanm02)
