@@ -63,36 +63,54 @@ To run the script, make sure the JSON file is located in the same directory as t
 
 The script is designed to parse JSON files with a specific structure, so ensure your files follow the expected format. Here's an example of how the JSON file should be structured:
 
-<!-- ```json
-{
-  "courses": [
-    {
-      "name": "Course Name",
-      "code": "Course Code",
-      "current_group": [
-        {
-          "students": [
-            {
-              "id": "Student ID",
-              "name": "Name",
-              "surname": "Surname",
-              "gender": "Gender",
-              "email": "Email",
-              "mobile_number": "Mobile Number",
-              "national_code": "National Code",
-              "phone_number": "Phone Number",
-              "pivot": {
-                "status": "Status"
-              }
-            },
-            ...
-          ]
+```json
+[
+  {
+    "id": "integer",
+    "user_id": "integer",
+    "amount": "integer",
+    "sharif_order_id": "string",
+    "reference_id": "string",
+    "status": "string",
+    "created_at": "string",
+    "updated_at": "string",
+    "discount_coefficient": "float",
+    "sources": [
+      {
+        "id": "integer",
+        "payment_id": "integer",
+        "type": "string",
+        "course_code": "string",
+        "created_at": "string",
+        "updated_at": "string",
+        "course": {
+          "name": "string",
+          "code": "string",
+          "micromaster_id": "integer",
+          "description": "string",
+          "fee": "integer",
+          "created_at": "string",
+          "updated_at": "string"
         }
-      ]
+      }
+    ],
+    "user": {
+      "id": "integer",
+      "gender": "string",
+      "name": "string",
+      "surname": "string",
+      "photo": "null/string",
+      "bio": "null/string",
+      "email": "string",
+      "mobile_number": "string",
+      "national_code": "string",
+      "phone_number": "string",
+      "created_at": "string",
+      "updated_at": "string",
+      "extra": "null/object"
     }
-  ]
-}
-``` -->
+  }
+]
 
 If your JSON files are structured differently, you must modify the script accordingly.
 
