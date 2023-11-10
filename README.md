@@ -15,7 +15,7 @@ Here is a section-by-section walkthrough of the script:
 
 1. **Importing Necessary Libraries**: The script starts by importing essential libraries such as `pandas` for data handling, `json` for reading JSON files, and `openpyxl` for managing Excel-specific features.
 
-\```python
+```python
 import pandas as pd
 import json
 import openpyxl
