@@ -21,20 +21,20 @@ import json
 import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
-\```
+```
 
 2. **Loading and parsing JSON file**: The script reads the JSON file into a Python dictionary and then normalizes it into a DataFrame.
 
-\```python
+```python
 with open('Installments.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 df_main = pd.json_normalize(data)
-\```
+```
 
 3. **Data Processing**: Based on the requirements, various operations like renaming columns, deleting unwanted columns, and transforming specific cell values are performed.
 
-\```python
+```python
 column_renaming = {...}
 df_main.rename(columns=column_renaming, inplace=True)
 
@@ -43,11 +43,11 @@ df_main = df_main.drop(columns=[col for col in columns_to_drop if col in df_main
 
 messenger_mapping = {...}
 df_main['Internal Messenger Type'] = df_main['Internal Messenger Type'].replace(messenger_mapping)
-\```
+```
 
 4. **Data Export and Excel Formatting**: The processed DataFrame is then exported to an Excel file. Post-export, cell formatting, including font style, cell color, and cell alignment, is applied to the resulting Excel sheet.
 
-\```python
+```python
 output_file = 'output.xlsx'
 with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
     df_main.to_excel(writer, sheet_name='Main', index=False)
@@ -55,7 +55,7 @@ with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
 wb = openpyxl.load_workbook(output_file)
 ...
 wb.save(output_file)
-\```
+```
 
 ## Usage
 
